@@ -1,0 +1,19 @@
+﻿CREATE TABLE [dbo].[BotTypes]
+(
+  [Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [Name] NVARCHAR (50) NOT NULL,
+  [DateModified] DATETIME2 NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  [DateCreated] DATETIME2 NOT NULL DEFAULT CURRENT_TIMESTAMP,
+)
+GO
+
+CREATE TRIGGER [dbo].[Trigger_BotTypes_Modified_Date]
+  ON [dbo].[BotTypes]
+  FOR INSERT, UPDATE
+  AS
+  BEGIN
+    UPDATE [dbo].[Bots]
+    SET DateModified = CURRENT_TIMESTAMP
+  END
+ALTER TABLE [dbo].[BotTypes] ENABLE TRIGGER [Trigger_BotTypes_Modified_Date]
+GO

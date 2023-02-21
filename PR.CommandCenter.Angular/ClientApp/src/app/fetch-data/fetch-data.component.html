@@ -1,0 +1,144 @@
+<div class="flex flex-col justify-start h-screen max-h-screen">
+
+  <p *ngIf="!bots"><em>Loading...</em></p>
+
+  <div class="flex flex-col flex-grow-0">
+    <div class="mt-2 mb-2 mr-2 ml-2 md:ml-0 filter-input">
+      <input type="text" class="input search" id="" placeholder="filter by location or business" #filterKeyword (keyup)="keypressFilter(filterKeyword.value)" (focus)="focusFilter()" (blur)="blurFilter();filterKeyword.value=''" />
+      <div class="suggest-list" *ngIf="filterIsActive">
+        <ul>
+          <li class="suggest-item" *ngFor="let f of suggestedFilters" (click)="clickBotProperty(f.property,f.value);filterKeyword.value=''">
+            <span class="property">{{f.property}}</span>
+            <span class="value">{{f.value}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-row flex-end justify-end mb-2 mr-2 ml-2 md:ml-0 filter-list" *ngIf="filters.length > 0">
+      <div class="filter mr-2" *ngFor="let f of filters">
+        <div class="inner" (click)="clickFilterProperty(f.property,f.value)">
+          <div class="property">{{f.property}}</div>
+          <div class="value">{{f.value}}</div>
+          <div class="closer">
+            <p>x</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex-grow">&nbsp;</div>
+      <div class="filter clear">
+        <div class="inner" (click)="clearFilter()">
+          <div class="property"></div>
+          <div class="value">clear</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-row flex-grow overflow-hidden" *ngIf="bots.length > 0">
+
+    <div class="flex flex-col flex-grow overflow-y-scroll pr-2 pl-2 md:pl-0 asset-list">
+      <div class="flex flex-row justify-start items-center asset" *ngFor="let bot of bots">
+        <ul class="flex flex-col">
+          <li class=""><a class="bot-id" (click)="clickBotId(bot)">{{ bot.id }}</a></li>
+          <li class="business"><a class="" (click)="clickBotProperty('business',bot.business)">{{ bot.business }}</a></li>
+          <li class="location">
+            <a class="" (click)=" clickBotProperty('city',bot.city)">{{ bot.city }}</a>,
+            <a class="" (click)="clickBotProperty('region',bot.region)">{{ bot.region }}</a>,
+            <a class="" (click)="clickBotProperty('country',bot.country)">{{ bot.country }}</a>
+          </li>
+        </ul>
+        <div class="flex flex-grow">&nbsp;</div>
+        <div class="status-ctr {{bot.status.toLowerCase()}}">
+          <span class="status-ico">&nbsp;</span>
+          <p>{{bot.status}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col flex-grow bot-detail-info pl-2 pr-2" *ngIf="detailIsActive">
+
+      <svg class="close" (click)="clickDetailClose()" viewBox="0 0 96 96" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <path d=" M 41.41 12.62 C 58.25 9.12 76.40 19.66 81.88 35.92 C 87.66 51.20 81.22 69.78 67.32 78.33 C 53.45 87.57 33.40 85.13 22.08 72.92 C 13.48 64.16 9.99 50.82 13.17 38.96 C 16.46 25.70 27.97 15.00 41.41 12.62 M 44.14 18.26 C 34.98 19.36 26.55 25.02 22.00 33.02 C 15.91 43.35 16.91 57.29 24.47 66.60 C 30.25 74.03 39.70 78.38 49.11 77.95 C 58.50 77.69 67.58 72.65 72.80 64.86 C 78.19 57.06 79.44 46.65 76.20 37.77 C 71.76 24.83 57.68 16.25 44.14 18.26 Z" />
+        <path d=" M 33.91 38.08 C 35.31 36.68 36.72 35.28 38.12 33.89 C 41.43 37.16 44.69 40.48 48.01 43.75 C 51.32 40.47 54.58 37.14 57.91 33.88 C 59.32 35.29 60.72 36.70 62.10 38.12 C 58.84 41.43 55.53 44.69 52.27 48.00 C 55.53 51.32 58.85 54.57 62.11 57.89 C 60.71 59.30 59.30 60.70 57.89 62.09 C 54.56 58.85 51.31 55.52 48.01 52.25 C 44.70 55.52 41.44 58.82 38.15 62.09 C 36.72 60.70 35.30 59.30 33.88 57.89 C 37.16 54.57 40.48 51.31 43.77 48.00 C 40.50 44.67 37.12 41.47 33.91 38.08 Z" />
+      </svg>
+
+      <div class="flex flex-row flex-grow overflow-hidden">
+        <div class="flex">
+          <ul>
+            <li>
+              <label>Bot Id</label>
+              <span class="value">{{detailBot?.id}}</span>
+            </li>
+            <li>
+              <label>Type</label>
+              <span class="value">{{detailBot?.type}}</span>
+            </li>
+            <li>
+              <label>Business</label>
+              <span class="value">{{detailBot?.business}}</span>
+            </li>
+            <li>
+              <label>City</label>
+              <span class="value">{{detailBot?.city}}</span>
+            </li>
+            <li>
+              <label>Region</label>
+              <span class="value">{{detailBot?.region}}</span>
+            </li>
+            <li>
+              <label>Country</label>
+              <span class="value">{{detailBot?.country}}</span>
+            </li>
+            <li>
+              <label>Date Modified</label>
+              <span class="value">{{detailBot?.dateModified | date :'short'}}</span>
+            </li>
+            <li>
+              <label>Date Created</label>
+              <span class="value">{{detailBot?.dateCreated | date :'short'}}</span>
+            </li>
+            <li>
+              <label>Additional Info</label>
+              <span class="value">Additional info about the specific bot would go here</span>
+            </li>
+            <li>
+              <label>Additional Info</label>
+              <span class="value">Additional info about the specific bot would go here</span>
+            </li>
+            <li>
+              <label>Additional Info</label>
+              <span class="value">Additional info about the specific bot would go here</span>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col flex-grow overflow-y-scroll ml-2">
+          <div class="event-list mt-2">
+            <div *ngFor="let e of detailEvents | orderByDate:'dateCreated'" class="event {{e.type.toLowerCase()}}">
+              <ul class="">
+                <li>{{e.id}}</li>
+                <li>{{e.type}}</li>
+                <li>{{e.content}}</li>
+                <li>{{e.dateCreated | date : 'M/d/yy, h:mm:ss a' }}</li>
+                <li *ngIf="e.type.toLowerCase() === 'error'">
+                  <a href="#" class="btn resolve">mark resolved</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden md:flex md:basis-1/3 map" *ngIf="mapIsActive">
+      <google-map height="90vh" width="35vw" [center]="{ lat: 40, lng: -20 }" [zoom]="2" [options]="{disableDefaultUI: true, backgroundColor:'#8AB4F9'}">
+        <map-marker *ngFor="let m of bots" [position]="{ lat: m.lat, lng: m.lon }" [options]="{icon:'/assets/marker-'+m.status.toLowerCase()+'.png'}" (mapClick)="clickMarker(m)"></map-marker>
+      </google-map>
+    </div>
+  </div>
+
+  <div class="hidden md:flex md:flex-grow-0 md:mb-2 md:justify-center footer">
+    <p>
+      {{bots.length}} bots in {{countries.length}} countries, {{regions.length}} regions,
+      {{cities.length}} cities, {{businesses.length}} businesses
+    </p>
+  </div>
+</div>

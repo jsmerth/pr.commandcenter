@@ -1,0 +1,266 @@
+.asset-list {
+  .asset {
+    font-family: 'Axiforma', sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .business {
+      font-family: 'Axiforma', sans-serif;
+      font-weight: 800;
+      color: #3B5E5E;
+    }
+
+    .location {
+      font-family: 'Axiforma', sans-serif;
+      font-size: 12px;
+    }
+
+    .status-ctr {
+      text-align: center;
+      width: 50px;
+
+      &.online,
+      &.ok {
+        .status-ico {
+          background-color: #06B226;
+        }
+      }
+
+      &.error {
+        .status-ico {
+          background-color: #C4031C;
+        }
+      }
+
+      &.offline {
+        .status-ico {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      .status-ico {
+        display: block;
+        border-radius: 999px;
+        width: 18px;
+        height: 18px;
+        margin: 0 auto;
+      }
+
+      P {
+        font-family: 'Axiforma', sans-serif;
+        font-size: 10px;
+        margin-top: 5px;
+      }
+    }
+
+    A {
+      &:hover {
+        cursor: pointer;
+        background-color: #FFDE5A;
+      }
+    }
+  }
+}
+
+.filter-input {
+  background-color: #fff;
+
+  INPUT.search {
+    font-family: 'Axiforma', sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    padding: 12px 12px 12px 15px;
+    width: 400px;
+    border-radius: 4px;
+  }
+}
+
+.suggest-list {
+  position: absolute;
+  z-index: 999;
+  background-color: #e9d0d0;
+  max-height: 500px;
+  width: 400px;
+  overflow: hidden;
+  font-family: 'Axiforma', sans-serif;
+
+  .suggest-item {
+    cursor: pointer;
+    padding: 3px 10px;
+
+    &:hover {
+      background-color: #4C56E6;
+      color: #fff;
+    }
+
+    .property {
+      font-size: 9px;
+      display: block;
+      font-family: 'Axiforma', sans-serif;
+    }
+
+    .value {
+      font-size: 15px;
+      display: block;
+      font-family: 'Axiforma', sans-serif;
+    }
+  }
+}
+
+.filter-list {
+  .filter {
+    text-align: left;
+    background-color: #203450;
+    border-radius: 4px;
+    padding: 5px;
+
+    &.clear {
+      background-color: #351320;
+
+      .value {
+        margin-top: 8px;
+      }
+    }
+
+    .closer {
+      display: none;
+    }
+
+    &:hover {
+      background-color: #4C56E6;
+      position: relative;
+
+      .closer {
+        display: block;
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 18px;
+        height: 18px;
+        color: #fff;
+        text-align: center;
+        background-color: #203450;
+        border-radius: 9999px;
+
+        P {
+          margin-top: -5px;
+        }
+      }
+    }
+
+    .inner {
+      cursor: pointer;
+    }
+
+    .property {
+      font-size: 9px;
+      display: block;
+      color: #fff;
+      font-family: 'Axiforma', sans-serif;
+      font-weight: 500;
+    }
+
+    .value {
+      font-size: 12px;
+      display: block;
+      color: #fff;
+      font-family: 'Axiforma', sans-serif;
+    }
+  }
+}
+
+.bot-detail-info {
+  position: relative;
+  padding-top: 25px;
+
+  SVG.close {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    &:hover {
+      fill: #4C56E6;
+    }
+  }
+
+  LABEL {
+    display: block;
+    font-family: 'Axiforma', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    margin-top: 10px;
+    color: #507F7F;
+  }
+
+  .value {
+    font-family: 'Axiforma', sans-serif;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}
+
+.event-list {
+  .event {
+    position: relative;
+    font-family: 'Axiforma', sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+
+    &.error {
+      border-color: rgba(196, 3, 28, 0.25)
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn.resolve {
+      display: block;
+      position: absolute;
+      border-radius: 3px;
+      padding: 3px 7px;
+      bottom: 4px;
+      right: 4px;
+      background-color: #C4031C;
+      color: #fff;
+      font-family: 'Axiforma', sans-serif;
+      font-weight: 500;
+      font-size: 10px;
+    }
+  }
+}
+
+.map {
+  background-color: #8AB4F9;
+}
+
+.footer {
+  text-align: center;
+  font-family: 'Axiforma', sans-serif;
+
+  P {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+  }
+}
