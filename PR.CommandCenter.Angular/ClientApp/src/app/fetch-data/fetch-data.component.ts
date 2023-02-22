@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-fetch-data',
@@ -27,6 +28,7 @@ export class FetchDataComponent {
   public cities: IFilter[] = [];
   public businesses: IFilter[] = [];
   public statuses: IFilter[] = [];
+  public botTypes: IFilter[] = [];
   public errors: number = 0;
 
   public mapIsActive: boolean = true;
@@ -35,7 +37,7 @@ export class FetchDataComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
 
     this.http = http;
-    this.http.get<IBots>('http://localhost:7234/api/Bots').subscribe(result => {
+    this.http.get<IBots>(environment.config.botListUrl).subscribe(result => {
       //set master list
       this._bots = result.items;
       //set working list
@@ -53,7 +55,7 @@ export class FetchDataComponent {
   }
   public clickBotId = (bot: IBot) => {
 
-    this.http.get<IEvents>('http://localhost:7234/api/Events/' + bot.id).subscribe(result => {
+    this.http.get<IEvents>(environment.config.eventGetUrl + bot.id).subscribe(result => {
       this.detailIsActive = true;
       this.detailBot = bot;
       this.detailEvents = result.items;
@@ -91,7 +93,9 @@ export class FetchDataComponent {
   }
   public keypressFilter = (keyword: string) => {
     const regex = new RegExp(keyword, 'gi');
-    this.suggestedFilters = [...this.countries, ...this.regions, ...this.cities, ...this.businesses, ...this.statuses].filter((v, i, a) => v.value.match(regex));
+    this.suggestedFilters = [...this.countries, ...this.regions, ...this.cities, ...this.businesses, ...this.statuses, ...this.botTypes]
+      .filter((v, i, a) => v.value.match(regex));
+
   }
   public blurFilter = () => {
     setTimeout(() => {
@@ -120,6 +124,16 @@ export class FetchDataComponent {
     this.cities = [...new Set(this.bots.map((v) => v.city).sort())].map((v) => new Filter('city', v));
     this.businesses = [...new Set(this.bots.map((v) => v.business).sort())].map((v) => new Filter('business', v));
     this.statuses = [...new Set(this.bots.map((v) => v.status).sort())].map((v) => new Filter('status', v));
+    this.botTypes = [...new Set(this.bots.map((v) => v.type).sort())].map((v) => new Filter('type', v));
+  }
+  private isValidGUID(value: string): boolean {
+    if (value.length > 0) {
+      if (!(/^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$/).test(value)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 

@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  hmr: true
+  hmr: true,
+  config: {
+    botListUrl: 'http://localhost:7234/api/Bots',
+    eventGetUrl: 'http://localhost:7234/api/Events/'
+  }
 };
 
 /*

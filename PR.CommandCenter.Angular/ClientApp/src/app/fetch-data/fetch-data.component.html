@@ -4,7 +4,7 @@
 
   <div class="flex flex-col flex-grow-0">
     <div class="mt-2 mb-2 mr-2 ml-2 md:ml-0 filter-input">
-      <input type="text" class="input search" id="" placeholder="filter by location or business" #filterKeyword (keyup)="keypressFilter(filterKeyword.value)" (focus)="focusFilter()" (blur)="blurFilter();filterKeyword.value=''" />
+      <input type="text" class="input search" id="" placeholder="filter by location, business, or bot type" #filterKeyword (keyup)="keypressFilter(filterKeyword.value)" (focus)="focusFilter()" (blur)="blurFilter();filterKeyword.value=''" />
       <div class="suggest-list" *ngIf="filterIsActive">
         <ul>
           <li class="suggest-item" *ngFor="let f of suggestedFilters" (click)="clickBotProperty(f.property,f.value);filterKeyword.value=''">
